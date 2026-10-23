@@ -9,6 +9,7 @@ Ogni decisione architetturale non ovvia si registra qui come ADR numerato (`NNNN
 | [0003](0003-interfacce-di-controllo.md) | Interfacce e app sui dispositivi | Proposto (scelta aperta) |
 | [0004](0004-ambiente-di-build.md) | Ambiente di sviluppo e di build | Proposto |
 | [0005](0005-licenza.md) | Licenza del progetto e delle dipendenze | Proposto |
+| [0006](0006-motore-centrale-e-satelliti.md) | Motore centrale e satelliti (PR #3) | Proposto |
 
 ## Modello
 
