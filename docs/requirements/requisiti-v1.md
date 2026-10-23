@@ -73,7 +73,7 @@ Le Prove (ex S2) sono una modalità, non uno scenario.
 | UC14 | Registrazione multitraccia con marker di brano e cue | Fonico | Dovrebbe |
 | UC15 | Controllo di un mixer esterno via OSC/MIDI | Fonico | Dovrebbe |
 | UC16 | Effetti sonori a GO e dissolvenze luci | Fonico, Tecnico luci | Dovrebbe |
-| UC17 | Altri formati di spartito: tablature con ritmo, PDF, MusicXML | Musicista | Dopo |
+| UC17 | Altri formati di spartito: tablature Guitar Pro (export di Songsterr), PDF, MusicXML | Musicista | Dopo |
 | UC18 | Sopratitoli e copione | Attore | Dopo |
 | UC19 | MIDI Clock, MTC, LTC verso apparati esterni | Fonico | Dopo |
 | UC20 | Motore centrale di riserva | Regista | Dopo |
@@ -114,7 +114,7 @@ Da misurare con i simulatori (T09) e nella prova sul campo (T19).
 | Mix | Sala, palco/monitor, mix personale per musicista |
 | Mixer | Sia mixer software modulare (uscita principale + N mandate) sia controllo di mixer esterni. Escluso nella v1 il DSP da console professionale |
 | Motore centrale | Su qualsiasi dispositivo, anche tablet |
-| Formati di spartito | Importatori a moduli; primo ChordPro, poi tablature, PDF, MusicXML |
+| Formati di spartito | Importatori a moduli; primo ChordPro, poi tablature Guitar Pro (da Songsterr), PDF, MusicXML |
 | Lingua | Italiano, interfaccia pronta per la localizzazione |
 | Pedale | Simulato (tastiera/tocco); pedale ESP32 in futuro |
 
@@ -129,7 +129,7 @@ Da misurare con i simulatori (T09) e nella prova sul campo (T19).
 ## 11. Domande aperte
 
 - Modelli dell'hardware: mixer, Focusrite, luci DMX, strumenti e interfacce dell'amico.
-- Formato attuale delle tablature (Guitar Pro, ASCII, altro).
+- Tablature: verificare che Songsterr permetta di scaricare il file Guitar Pro con l'account di Luca; in alternativa PDF.
 
 ## 12. Criteri di accettazione della v1
 
