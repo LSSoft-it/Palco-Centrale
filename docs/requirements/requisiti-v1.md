@@ -129,7 +129,6 @@ Da misurare con i simulatori (T09) e nella prova sul campo (T19).
 ## 11. Domande aperte
 
 - Modelli dell'hardware: mixer, Focusrite, luci DMX, strumenti e interfacce dell'amico.
-- Tablature: verificare che Songsterr permetta di scaricare il file Guitar Pro con l'account di Luca; in alternativa PDF.
 
 ## 12. Criteri di accettazione della v1
 
