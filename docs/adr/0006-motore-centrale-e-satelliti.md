@@ -1,6 +1,6 @@
 # 0006. App unica con motore centrale e satelliti su un bus comune
 
-- Stato: Proposto
+- Stato: Accettato (scelta di Luca, 2026-10-23; diventa effettivo con il merge)
 - Data: 2026-10-23
 - Thread: Architettura generale (requisiti da T02)
 

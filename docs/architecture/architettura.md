@@ -4,7 +4,7 @@ Stato: **bozza** · 23 ottobre 2026 · thread "Architettura generale"
 
 Questo documento descrive come è fatto il sistema: quali pezzi esistono, dove girano e come si parlano. Si aggiorna ogni volta che un thread Txx prende una decisione che lo tocca; la tabella in fondo dice da dove viene ogni scelta.
 
-Fonti: documento di riferimento "Palco Centrale – Istruzioni e ossatura", requisiti T02 (`docs/requirements/requisiti-v1.md`, PR #2), ADR 0001-0005 di T01 (PR #1). La decisione strutturale è registrata in [ADR 0006](../adr/0006-motore-centrale-e-satelliti.md).
+Fonti: documento di riferimento "Palco Centrale – Istruzioni e ossatura", requisiti T02 (`docs/requirements/requisiti-v1.md`, PR #2), ADR 0001-0005 di T01 (PR #1). La decisione strutturale, scelta da Luca il 2026-10-23, è registrata in [ADR 0006](../adr/0006-motore-centrale-e-satelliti.md).
 
 ## 1. In una frase
 
@@ -183,6 +183,7 @@ docs/            architettura, ADR, protocollo, requisiti
 | 2026-10-23 | T02 | Mixer software main + N mandate in v1, più mixer esterni | §3 Mixer |
 | 2026-10-23 | T02 | Spartiti a importatori modulari: ChordPro, poi Guitar Pro | §3 Spartiti |
 | 2026-10-23 | T02 | Ingressi (pedale, MIDI) non sono ruoli | §3 Ingressi |
+| 2026-10-23 | Luca | Struttura: app unica, motore centrale + satelliti | ADR 0006 |
 | 2026-10-23 | T01 (proposto) | Nucleo C++/JUCE; app JUCE + UI web in WebView | §9, §10 |
 
 ## 12. Punti aperti
