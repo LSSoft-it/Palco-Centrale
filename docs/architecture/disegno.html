@@ -1,0 +1,298 @@
+<title>Architettura Palco Centrale</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column, each figure a full-width plate with a short claim above it */
+:root{
+  --bg:#f3f4f7; --panel:#ffffff; --fg:#1b1e27; --muted:#5b6172; --line:#c3c8d4;
+  --accent:#b86f00; --accent-soft:#fbefd9; --clock:#0d7680; --faint:#a3a9b8;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Source Sans 3","Segoe UI",Roboto,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#111319; --panel:#1a1d26; --fg:#e6e8ee; --muted:#9ba1b1; --line:#383d4b;
+  --accent:#f0a830; --accent-soft:#3a2c12; --clock:#3fc3cc; --faint:#5d6375; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111319; --panel:#1a1d26; --fg:#e6e8ee; --muted:#9ba1b1; --line:#383d4b;
+  --accent:#f0a830; --accent-soft:#3a2c12; --clock:#3fc3cc; --faint:#5d6375; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--f-body)}
+.wrap{max-width:860px;margin:0 auto;padding-block:40px 64px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:44px}
+header{display:flex;flex-direction:column;gap:10px}
+.eyebrow{font:500 12px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+h1{font:700 44px/1.02 var(--f-display);margin:0;text-wrap:balance;letter-spacing:.01em}
+h2{font:600 28px/1.1 var(--f-display);margin:0;text-wrap:balance}
+p{margin:0;max-width:66ch}
+.lede{font-size:18px;color:var(--fg)}
+.meta{font:12px/1.4 var(--f-mono);color:var(--muted)}
+section{display:flex;flex-direction:column;gap:14px}
+figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;overflow-x:auto}
+figure svg{display:block;width:100%;min-width:640px;height:auto}
+figcaption{font-size:14px;color:var(--muted);margin-top:12px;max-width:72ch}
+/* svg vocabulary */
+.bx{fill:var(--panel);stroke:var(--line);stroke-width:1.2}
+.bx-ui{fill:var(--bg);stroke:var(--line);stroke-width:1.2}
+.bx-acc{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.6}
+.bx-hw{fill:none;stroke:var(--faint);stroke-width:1.2;stroke-dasharray:4 3}
+.bus{fill:var(--fg)}
+.t{fill:var(--fg);font:600 13px var(--f-body)}
+.tb{fill:var(--bg);font:600 13px var(--f-body)}
+.tbs{fill:var(--bg);font:11px var(--f-mono);opacity:.8}
+.ts{fill:var(--muted);font:11px var(--f-mono)}
+.tacc{fill:var(--accent);font:600 11px var(--f-mono)}
+.tclk{fill:var(--clock);font:600 11px var(--f-mono)}
+.ln{stroke:var(--muted);stroke-width:1.3;fill:none}
+.ln-acc{stroke:var(--accent);stroke-width:1.8;fill:none}
+.ln-clk{stroke:var(--clock);stroke-width:1.8;fill:none;stroke-dasharray:2 4;stroke-linecap:round}
+.ln-media{stroke:var(--faint);stroke-width:1.5;fill:none;stroke-dasharray:7 5}
+.ln-wait{stroke:var(--faint);stroke-width:1.3;fill:none;stroke-dasharray:3 3}
+.mk{fill:var(--muted)} .mk-acc{fill:var(--accent)} .mk-clk{fill:var(--clock)}
+.dot-acc{fill:var(--accent)} .dot{fill:var(--fg)}
+/* configurations */
+.configs{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}
+.cfg{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cfg h3{font:600 20px/1.1 var(--f-display);margin:0}
+.cfg .sub{font:12px var(--f-mono);color:var(--muted)}
+.nodes{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.node{flex:1 1 150px;border:1px solid var(--line);border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px;background:var(--bg);min-width:0}
+.node b{font:600 14px var(--f-body)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font:11px/1 var(--f-mono);padding:5px 7px;border-radius:3px;border:1px solid var(--line);background:var(--panel)}
+.chip.eng{border-color:var(--accent);background:var(--accent-soft);color:var(--fg);font-weight:500}
+.chip.ui{border-style:dashed}
+.via{font:11px var(--f-mono);color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font:12px var(--f-mono);color:var(--muted)}
+.legend span{display:inline-flex;gap:6px;align-items:center}
+.sw{width:14px;height:10px;border-radius:2px;border:1px solid var(--line);background:var(--panel)}
+.sw.eng{border-color:var(--accent);background:var(--accent-soft)}
+.sw.ui{border-style:dashed}
+table{border-collapse:collapse;width:100%;font-size:15px}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:6px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600;white-space:nowrap}
+ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:66ch}
+code{font:13px var(--f-mono)}
+@media (max-width:640px){.configs{grid-template-columns:1fr} h1{font-size:36px}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Primo disegno · 23 ottobre 2026 · ADR 0006 accettato</span>
+  <h1>Architettura di Palco Centrale</h1>
+  <p class="lede">Ogni dispositivo esegue la stessa app. In ogni show un solo nodo ospita il motore centrale (clock, scaletta, cue); gli altri sono satelliti che ricevono in anticipo cosa fare e quando, e se la rete cade vanno avanti da soli.</p>
+  <span class="meta">Fonte: docs/architecture/architettura.md · requisiti T02 · stack proposto in T01</span>
+</header>
+
+<section>
+  <h2>Dentro un nodo</h2>
+  <p>Interfacce, motore e moduli non si parlano mai direttamente: tutto passa dal bus, che usa gli stessi messaggi sia dentro l'app sia in rete. Un modulo non sa se il motore è accanto a lui o su un altro dispositivo.</p>
+  <figure>
+    <svg viewBox="0 0 760 450" role="img" aria-label="Struttura di un nodo: interfacce di ruolo in alto, bus dei messaggi al centro, motore centrale e moduli esecutori sotto, adattatori hardware con simulatore in fondo">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <!-- role UIs -->
+      <text class="ts" x="20" y="14">INTERFACCE DI RUOLO (web, in app o da browser)</text>
+      <rect class="bx-ui" x="20" y="22" width="170" height="46" rx="4"/><text class="t" x="105" y="50" text-anchor="middle">Regista</text>
+      <rect class="bx-ui" x="206" y="22" width="170" height="46" rx="4"/><text class="t" x="291" y="50" text-anchor="middle">Fonico</text>
+      <rect class="bx-ui" x="392" y="22" width="170" height="46" rx="4"/><text class="t" x="477" y="50" text-anchor="middle">Musicista / Attore</text>
+      <rect class="bx-ui" x="578" y="22" width="162" height="46" rx="4"/><text class="t" x="659" y="50" text-anchor="middle">Tecnico luci</text>
+      <line class="ln" x1="105" y1="70" x2="105" y2="102" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="291" y1="70" x2="291" y2="102" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="477" y1="70" x2="477" y2="102" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="659" y1="70" x2="659" y2="102" marker-start="url(#a)" marker-end="url(#a)"/>
+      <text class="ts" x="113" y="91">comandi · stato</text>
+      <!-- bus -->
+      <rect class="bus" x="20" y="104" width="720" height="56" rx="4"/>
+      <text class="tb" x="36" y="128">Bus messaggi · protocollo unico e versionato</text>
+      <text class="tbs" x="36" y="148">nucleo C++: clock dello show · scoperta · accoppiamento · modello dello show · log JSON</text>
+      <text class="tbs" x="724" y="128" text-anchor="end">locale (in memoria) ⇄ rete (WebSocket)</text>
+      <!-- bus to engine & modules -->
+      <line class="ln" x1="95" y1="162" x2="95" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="239" y1="162" x2="239" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="352" y1="162" x2="352" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="465" y1="162" x2="465" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="578" y1="162" x2="578" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <line class="ln" x1="691" y1="162" x2="691" y2="208" marker-start="url(#a)" marker-end="url(#a)"/>
+      <!-- engine -->
+      <rect class="bx-acc" x="20" y="210" width="150" height="118" rx="4"/>
+      <text class="t" x="95" y="238" text-anchor="middle">Motore centrale</text>
+      <text class="ts" x="95" y="262" text-anchor="middle">clock master</text>
+      <text class="ts" x="95" y="280" text-anchor="middle">scaletta · cue</text>
+      <text class="ts" x="95" y="298" text-anchor="middle">registro nodi</text>
+      <text class="tacc" x="95" y="318" text-anchor="middle">UNO PER SHOW</text>
+      <!-- modules -->
+      <text class="ts" x="190" y="203">MODULI ESECUTORI</text>
+      <rect class="bx" x="190" y="210" width="98" height="34" rx="4"/><text class="t" x="239" y="232" text-anchor="middle">Playback</text>
+      <rect class="bx" x="190" y="252" width="98" height="34" rx="4"/><text class="t" x="239" y="274" text-anchor="middle">Mixer</text>
+      <rect class="bx" x="190" y="294" width="98" height="34" rx="4"/><text class="t" x="239" y="316" text-anchor="middle">Registrazione</text>
+      <text class="tacc" x="239" y="346" text-anchor="middle">thread audio</text>
+      <rect class="bx" x="303" y="210" width="98" height="34" rx="4"/><text class="t" x="352" y="232" text-anchor="middle">Luci</text>
+      <rect class="bx" x="416" y="210" width="98" height="34" rx="4"/><text class="t" x="465" y="232" text-anchor="middle">Sincronismi</text>
+      <rect class="bx" x="529" y="210" width="98" height="34" rx="4"/><text class="t" x="578" y="232" text-anchor="middle">Ingressi</text>
+      <rect class="bx" x="642" y="210" width="98" height="34" rx="4"/><text class="t" x="691" y="232" text-anchor="middle">Spartiti</text>
+      <!-- to hardware -->
+      <line class="ln" x1="239" y1="352" x2="239" y2="370" marker-end="url(#a)"/>
+      <line class="ln" x1="352" y1="246" x2="352" y2="370" marker-end="url(#a)"/>
+      <line class="ln" x1="465" y1="246" x2="465" y2="370" marker-end="url(#a)"/>
+      <line class="ln" x1="578" y1="370" x2="578" y2="246" marker-end="url(#a)"/>
+      <line class="ln" x1="691" y1="246" x2="691" y2="370" marker-end="url(#a)"/>
+      <text class="ts" x="586" y="320">tasto, pedale</text>
+      <text class="ts" x="586" y="334">→ GO</text>
+      <rect class="bx-hw" x="190" y="372" width="98" height="36" rx="4"/><text class="t" x="239" y="395" text-anchor="middle">Scheda audio</text>
+      <rect class="bx-hw" x="303" y="372" width="98" height="36" rx="4"/><text class="t" x="352" y="395" text-anchor="middle">DMX · Art-Net</text>
+      <rect class="bx-hw" x="416" y="372" width="98" height="36" rx="4"/><text class="t" x="465" y="395" text-anchor="middle">MIDI · LTC</text>
+      <rect class="bx-hw" x="529" y="372" width="98" height="36" rx="4"/><text class="t" x="578" y="395" text-anchor="middle">Pedale · tasti</text>
+      <rect class="bx-hw" x="642" y="372" width="98" height="36" rx="4"/><text class="t" x="691" y="395" text-anchor="middle">Schermo</text>
+      <text class="ts" x="190" y="436">ADATTATORI HARDWARE · tratteggio = ognuno ha il suo simulatore, si prova tutto senza hardware</text>
+    </svg>
+    <figcaption>Su un nodo è attivo solo quello che serve: il motore su un nodo per show, i moduli dove c'è il loro hardware, le interfacce per i ruoli di chi lo usa. Nel thread audio niente allocazioni, lock, I/O o log: legge comandi già programmati da una coda preallocata.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Tra i nodi: tre piani separati</h2>
+  <p>Comandi e stato viaggiano su un canale affidabile; il clock su UDP, dove un pacchetto perso si ignora invece di ritardare gli altri. L'audio tra nodi resta fuori dalla v1: suona sul nodo che ha la scheda audio.</p>
+  <figure>
+    <svg viewBox="0 0 760 300" role="img" aria-label="Il nodo con il motore è collegato alla rete dello show con tre piani: controllo affidabile, clock su UDP, media fuori dalla v1; i satelliti si agganciano alla stessa rete">
+      <defs>
+        <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+        <marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="mk-clk" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <rect class="bx-acc" x="20" y="80" width="200" height="140" rx="4"/>
+      <text class="t" x="120" y="110" text-anchor="middle">Nodo con il motore</text>
+      <text class="ts" x="120" y="134" text-anchor="middle">Mac in cavo (C3)</text>
+      <text class="ts" x="120" y="152" text-anchor="middle">o tablet da solo (C1)</text>
+      <text class="tacc" x="120" y="180" text-anchor="middle">CLOCK MASTER</text>
+      <text class="ts" x="120" y="200" text-anchor="middle">annuncio mDNS + codice</text>
+      <!-- planes -->
+      <line class="ln" x1="222" y1="108" x2="430" y2="108" marker-start="url(#b)" marker-end="url(#b)"/>
+      <text class="t" x="236" y="100">Controllo</text><text class="ts" x="236" y="124">WebSocket/TCP · JSON · affidabile</text>
+      <line class="ln-clk" x1="222" y1="160" x2="430" y2="160" marker-start="url(#c)" marker-end="url(#c)"/>
+      <text class="t" x="236" y="152">Clock</text><text class="tclk" x="236" y="176">UDP stile PTP · &lt; 1 ms cavo</text>
+      <line class="ln-media" x1="222" y1="208" x2="430" y2="208"/>
+      <text class="t" x="236" y="200">Media</text><text class="ts" x="236" y="224">UDP/RTP · fuori dalla v1</text>
+      <!-- spine -->
+      <line class="ln" x1="432" y1="20" x2="432" y2="280" style="stroke-width:4"/>
+      <text class="ts" x="442" y="292">rete dello show (LAN, Wi-Fi)</text>
+      <!-- satellites -->
+      <line class="ln" x1="434" y1="50" x2="540" y2="50"/>
+      <line class="ln" x1="434" y1="150" x2="540" y2="150"/>
+      <line class="ln" x1="434" y1="250" x2="540" y2="250"/>
+      <rect class="bx" x="540" y="22" width="200" height="56" rx="4"/><text class="t" x="556" y="46">Satellite luci</text><text class="ts" x="556" y="66">PC con uscita DMX · cavo</text>
+      <rect class="bx" x="540" y="122" width="200" height="56" rx="4"/><text class="t" x="556" y="146">Tablet del musicista</text><text class="ts" x="556" y="166">testi, accordi · Wi-Fi</text>
+      <rect class="bx" x="540" y="222" width="200" height="56" rx="4" style="stroke-dasharray:4 3"/><text class="t" x="556" y="246">Telefono del regista</text><text class="ts" x="556" y="266">solo browser · Wi-Fi</text>
+    </svg>
+    <figcaption>I satelliti trovano il motore con mDNS e si associano con il codice mostrato dal motore; i comandi da nodi non associati vengono ignorati e registrati. Ogni messaggio porta versione del protocollo, nodo, show, numero di sequenza e show time.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Il tempo: comandi in anticipo, esecuzione puntuale</h2>
+  <p>Il motore non dice "fai adesso", dice "fai all'istante T". La latenza di rete si consuma nell'attesa, e luci e spartiti cambiano insieme anche se il messaggio arriva prima a uno e poi all'altro.</p>
+  <figure>
+    <svg viewBox="0 0 760 250" role="img" aria-label="Linea del tempo di un GO: il pedale preme, il motore fissa l'istante T, i messaggi arrivano a luci e spartiti in momenti diversi ma entrambi eseguono a T">
+      <defs>
+        <marker id="d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="mk" d="M0,0 L10,5 L0,10 z"/></marker>
+      </defs>
+      <text class="t" x="20" y="54">Pedale</text>
+      <text class="t" x="20" y="104">Motore</text>
+      <text class="t" x="20" y="154">Luci (cavo)</text>
+      <text class="t" x="20" y="194">Spartiti (Wi-Fi)</text>
+      <line class="ln-wait" x1="130" y1="50" x2="740" y2="50" style="stroke-dasharray:1 5"/>
+      <line class="ln-wait" x1="130" y1="100" x2="740" y2="100" style="stroke-dasharray:1 5"/>
+      <line class="ln-wait" x1="130" y1="150" x2="740" y2="150" style="stroke-dasharray:1 5"/>
+      <line class="ln-wait" x1="130" y1="190" x2="740" y2="190" style="stroke-dasharray:1 5"/>
+      <!-- press -->
+      <circle class="dot" cx="160" cy="50" r="5"/>
+      <line class="ln" x1="162" y1="54" x2="184" y2="94" marker-end="url(#d)"/>
+      <text class="ts" x="170" y="40">GO</text>
+      <circle class="dot" cx="190" cy="100" r="5"/>
+      <text class="ts" x="200" y="92">fissa T = ora + anticipo</text>
+      <!-- sends -->
+      <line class="ln" x1="194" y1="104" x2="276" y2="146" marker-end="url(#d)"/>
+      <line class="ln" x1="194" y1="104" x2="416" y2="186" marker-end="url(#d)"/>
+      <text class="ts" x="236" y="140">arriva presto</text>
+      <text class="ts" x="330" y="160">arriva tardi</text>
+      <!-- waits -->
+      <line class="ln-wait" x1="284" y1="150" x2="572" y2="150"/>
+      <line class="ln-wait" x1="424" y1="190" x2="572" y2="190"/>
+      <text class="ts" x="300" y="143">attende T</text>
+      <text class="ts" x="440" y="183">attende T</text>
+      <!-- T -->
+      <line class="ln-acc" x1="580" y1="28" x2="580" y2="214" style="stroke-dasharray:5 4"/>
+      <circle class="dot-acc" cx="580" cy="150" r="7"/>
+      <circle class="dot-acc" cx="580" cy="190" r="7"/>
+      <text class="tacc" x="592" y="155">scena 12</text>
+      <text class="tacc" x="592" y="195">pagina 3</text>
+      <text class="tacc" x="586" y="24">T</text>
+      <!-- lead bracket -->
+      <path class="ln" d="M190,72 V66 H580 V72"/>
+      <text class="ts" x="385" y="62" text-anchor="middle">anticipo: entro 20 ms in cavo, 50 ms in Wi-Fi (valore in T06/T08)</text>
+      <!-- axis -->
+      <line class="ln" x1="130" y1="226" x2="740" y2="226" marker-end="url(#d)"/>
+      <text class="ts" x="740" y="244" text-anchor="end">show time (µs dal via, uguale su tutti i nodi)</text>
+    </svg>
+    <figcaption>Per i brani il motore manda anche la mappa del tempo (inizio, BPM, metrica). Ogni nodo calcola da solo battute e posizioni, quindi non serve un messaggio a ogni battuta, e se la rete cade il tablet continua a scorrere a tempo.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Stesso codice, dalla one man band al gruppo</h2>
+  <p>Cambia solo dove si accendono motore, moduli e interfacce. Nella C1 il bus resta tutto dentro il tablet; nella C3 gli stessi messaggi vanno in rete.</p>
+  <div class="legend"><span><i class="sw eng"></i>motore</span><span><i class="sw"></i>modulo</span><span><i class="sw ui"></i>interfaccia di ruolo</span></div>
+  <div class="configs">
+    <div class="cfg">
+      <div><h3>C1 · One man band minima</h3><span class="sub">primo test della v1</span></div>
+      <div class="nodes">
+        <div class="node"><b>Tablet sul leggio</b>
+          <div class="chips"><span class="chip eng">Motore</span><span class="chip">Spartiti</span><span class="chip">Ingressi</span><span class="chip ui">Regista</span><span class="chip ui">Musicista</span></div>
+          <span class="via">bus locale · pedale simulato → GO</span></div>
+      </div>
+    </div>
+    <div class="cfg">
+      <div><h3>C3 · Band amatoriale</h3><span class="sub">Mac, tablet, telefono, luci DMX</span></div>
+      <div class="nodes">
+        <div class="node"><b>Mac + Focusrite</b>
+          <div class="chips"><span class="chip eng">Motore</span><span class="chip">Playback</span><span class="chip">Mixer</span><span class="chip">Registrazione</span><span class="chip">Luci</span><span class="chip ui">Fonico</span></div>
+          <span class="via">cavo · clock master</span></div>
+        <div class="node"><b>Tablet</b>
+          <div class="chips"><span class="chip">Spartiti</span><span class="chip">Ingressi</span><span class="chip ui">Musicista</span></div>
+          <span class="via">Wi-Fi · satellite</span></div>
+        <div class="node"><b>Telefono</b>
+          <div class="chips"><span class="chip ui">Regista</span><span class="chip ui">Mix personale</span></div>
+          <span class="via">browser · niente da installare</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Se qualcosa si rompe</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Guasto</th><th>Cosa succede</th></tr></thead>
+    <tbody>
+      <tr><td>Satellite perde la rete</td><td>Continua con la timeline già ricevuta e l'ultimo stato, si segna "degradato", al ritorno si riallinea senza salti.</td></tr>
+      <tr><td>Nodo luci perde il motore</td><td>L'ultima scena resta accesa, nessun blackout.</td></tr>
+      <tr><td>Nodo audio senza rete</td><td>La base continua fino a fine brano: il thread audio non dipende mai dalla rete.</td></tr>
+      <tr><td>Motore bloccato</td><td>I satelliti tengono l'ultimo stato; al riavvio il motore ricarica lo show e si fa ridare lo stato (v1: entro 30 s). Motore di riserva dopo la v1.</td></tr>
+      <tr><td>Pedale spento</td><td>Nessun effetto: i comandi restano sulle interfacce.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2>Ancora da decidere</h2>
+  <ul>
+    <li>Quanto vale l'anticipo dei comandi in cavo e in Wi-Fi (T06, T08).</li>
+    <li>Interfacce web in WebView o Flutter (T01, card aperta).</li>
+    <li>Audio di rete fuori dalla v1 e obiettivo Wi-Fi sotto i 10 ms (T02, da confermare).</li>
+    <li>Formato esatto della busta dei messaggi, JSON o MessagePack (T04).</li>
+    <li>Come un motore riavviato ricostruisce lo stato (T17).</li>
+  </ul>
+</section>
+</div>
